@@ -1,0 +1,243 @@
+$prefixs = 'webkit' 'moz' 'ms' 'o' 'official'
+
+
+
+
+vendor($prop, $args)
+	-webkit-{$prop} $args
+	-moz-{$prop} $args
+	-ms-{$prop} $args
+	-o-{$prop} $args
+	{$prop} $args
+	
+
+
+
+border-radius($args, $prop = null)
+	if $prop == null
+		$prop = ''
+
+	if $prop == 'top-left'
+		$prop = 'top-left-'
+	if $prop == 'top-right'
+		$prop = 'top-right-'
+		
+	if $prop == 'bottom-left'
+		$prop = 'bottom-left-'
+	if $prop == 'bottom-right'
+		$prop = 'bottom-right-'
+
+	-webkit-border-{$prop}radius $args
+	-moz-border-{$prop}radius $args
+	border-{$prop}radius $args
+
+
+
+
+
+box-sizing($args)
+	-webkit-box-sizing $args
+	-moz-box-sizing $args
+	box-sizing $args
+
+
+
+box-shadow($args)
+	if (typeof($args) == 'string')
+		$args = convert($args)
+
+	-webkit-box-shadow $args
+	-moz-box-shadow $args
+	box-shadow $args
+	
+
+text-shadow($args)
+	if (typeof($args) == 'string')
+		$args = convert($args)
+
+	-webkit-text-shadow $args
+	-moz-text-shadow $args
+	text-shadow $args
+
+
+background-clip($args)
+	if (typeof($args) == 'string')
+		$args = convert($args)
+
+	-webkit-background-clip $args
+	-moz-background-clip $args
+	background-clip $args
+
+
+
+
+
+transform($args)
+	vendor(transform, $args)
+
+	
+
+
+
+
+transform-origin($args)
+	vendor(transform-origin, $args)
+
+
+
+transition($args)
+	(typeof($args) == 'string') ? vendor(transition, convert($args)) : vendor(transition, $args)
+
+transition-delay($args)
+	vendor(transition-delay, $args)
+	
+transition-duration($args)
+	vendor(transition-duration, $args)
+
+
+
+animation($args, $prop = null)
+	if $prop == null
+		vendor(animation, $args)
+	
+
+	if $prop == 'delay'
+		vendor(animation-delay, $args)
+		
+	if $prop == 'duration'
+		vendor(animation-duration, $args)
+	
+	if $prop == 'direction'
+		vendor(animation-direction, $args)
+	
+	if $prop == 'iteration'
+		vendor(animation-iteration-count, $args)
+	
+	if $prop == 'name'
+		vendor(animation-name, $args)
+	
+	if $prop == 'state'
+		vendor(animation-play-state, $args)
+	
+	if $prop == 'easing'
+		vendor(animation-timing-function, $args)
+	
+	if $prop == 'mode'
+		vendor(animation-fill-mode, $args)
+
+
+
+
+
+
+
+
+anim-keyframes($prop, $args)
+	if vendors == 'webkit'
+		-webkit-{$prop} $args
+	if vendors == 'moz'
+		-moz-{$prop} $args
+	if vendors == 'ms'
+		-ms-{$prop} $args
+	if vendors == 'o'
+		-o-{$prop} $args
+	if vendors == 'official'
+		{$prop} $args
+
+
+
+
+
+
+
+multi-classes($classes)
+	selector = ''
+
+	for i in (0..(length($classes) - 1))
+		selector += $classes[i]+','
+	
+	{selector}
+		{block}
+
+
+
+
+
+/*addLinks(hash)
+  for key, value in links
+    new_hash = clone(hash)
+    for hash_key, hash_value in new_hash
+      if hash_value == clr
+        new_hash[hash_key] = value
+
+    &.{key}
+      {new_hash}
+      {block}*/
+
+
+
+
+
+
+
+reset-href()
+	text-decoration none
+
+reset-list()
+	list-style none
+	-webkit-margin-before 1em
+	-webkit-margin-after 1em
+	-webkit-margin-start 0px
+	-webkit-margin-end 0px
+	-webkit-padding-start 0px
+
+
+		
+
+
+
+background-linear-gradient($startPoint, $startColor, $startInterval, $endColor, $endInterval, $deprecatedWebkitStartPoint = false, $deprecatedWebkitEndPoint = false)
+	background-color $startColor
+	if $deprecatedWebkitStartPoint && $deprecatedWebkitEndPoint
+		background-image -webkit-gradient(linear, $deprecatedWebkitStartPoint, $deprecatedWebkitEndPoint, color-stop($startInterval, $startColor), color-stop($endInterval, $endColor))
+	background-image -webkit-linear-gradient(startPoint, $startColor $startInterval, $endColor $endInterval)
+	background-image -moz-linear-gradient(startPoint, $startColor $startInterval, $endColor $endInterval)
+	background-image -ms-linear-gradient(startPoint, $startColor $startInterval, $endColor $endInterval)
+	background-image -o-linear-gradient(startPoint, $startColor $startInterval, $endColor $endInterval)
+	background-image linear-gradient(startPoint, $startColor $startInterval, $endColor $endInterval)
+
+
+
+
+
+random($min, $max)
+	return math(math(0, 'random')*($max - $min + 1) + $min, 'floor')
+	
+
+random-time($min, $max)
+	return (random($min, $max)/1000 s)
+	
+
+
+
+
+
+
+
+screen-min-width($min)
+	@media screen and (min-width $min)
+		{block}
+
+screen-max-width($max)
+	@media screen and (max-width $max)
+		{block}
+
+screen-min-max-width($min, $max)
+	@media screen and (min-width $min) and (max-width $max)
+		{block}
+
+
+
+
+get-column($n1, $n2)
+	return round((100 * $n1 / $n2) %, 8)

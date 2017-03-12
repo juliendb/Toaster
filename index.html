@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="css/toaster.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<style type="text/css">
+		.toaster-blue {
+			background: #0468FF;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<form>
+			<div class="row">
+				<div class="col-xs-12">
+					<h1>Toaster</h1>
+				</div>
+				<div class="col-md-4">
+					
+					<input type="hidden" id="container" name="container" value="body">
+					<div class="form-group">
+						<label for="title">title</label>
+						<input type="text" id="title" class="form-control" name="title" value="Hello world !" placeholder="Title">
+					</div>
+					<div class="form-group">
+						<label for="content">content</label>
+						<textarea type="text" id="content" class="form-control" name="content" rows="6" style="resize: none;" placeholder="Content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate nesciunt, amet atque sit illum!</textarea>
+					</div>
+					<div class="form-group">
+						<label for="id">id</label>
+						<input type="text" id="id" class="form-control" name="id" value="" placeholder="Id">
+					</div>
+					<div class="form-group">
+						<label for="classe">classe</label>
+						<input type="text" id="classe" class="form-control" name="classe" value="toaster-blue" placeholder="Classe">
+					</div>
+					<div class="form-group">
+						<label for="position">position</label>
+						<select id="position" name="position" class="form-control">
+							<option value="top-left">top-left</option>
+							<option value="top-right">top-right</option>
+							<option value="bottom-left" selected>bottom-left</option>
+							<option value="bottom-right">bottom-right</option>
+						</select>
+						<span class="help-block">Default bottom-left</span>
+					</div>
+					<div class="form-group">
+						<div class="checkbox"><label for="close"><input id="close" name="close" type="checkbox" value="true" checked> close</label></div>
+						<div class="checkbox"><label for="begin"><input id="begin" name="begin" type="checkbox" value="true" checked> begind</label></div>
+						<div class="checkbox"><label for="restart"><input id="restart" name="restart" type="checkbox" value="true" checked> restart</label></div>
+					</div>
+					
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<label for="timeShow">timeShow</label>
+						<input type="text" id="timeShow" name="timeShow" class="form-control" value="600" placeholder="Time Show">
+						<span class="help-block">Default 600 ms</span>
+					</div>
+					<div class="form-group">
+						<label for="timeHide">timeHide</label>
+						<input type="text" id="timeHide" name="timeHide" class="form-control" value="600" placeholder="Time Hide">
+						<span class="help-block">Default 600 ms</span>
+					</div>
+					<div class="form-group">
+						<label for="timeBegin">timeBegin</label>
+						<input type="text" id="timeBegin" name="timeBegin" class="form-control" value="2000" placeholder="Time Begin">
+						<span class="help-block">Default 2000 ms</span>
+					</div>
+					<div class="form-group">
+						<label for="timeLeave">timeLeave</label>
+						<input type="text" id="timeLeave" name="timeLeave" class="form-control" value="20000" placeholder="Time Leave">
+						<span class="help-block">Default 20000 ms</span>
+					</div>
+					<div class="form-group">
+						<label for="timeRestart">timeRestart</label>
+						<input type="text" id="timeRestart" name="timeRestart" class="form-control" value="5000" placeholder="Time Restart">
+						<span class="help-block">Default 5000 ms</span>
+					</div>
+					<div class="form-group">
+						<label for="showMethod">showMethod</label>
+						<select id="showMethod" name="showMethod" class="form-control">
+							<option value="fade" selected>fade</option>
+							<option value="scale">scale</option>
+							<option value="slideLeft">slideLeft</option>
+							<option value="slideRight">slideRight</option>
+							<option value="slideUp">slideUp</option>
+							<option value="slideDown">slideDown</option>
+						</select>
+						<span class="help-block">Default fade</span>
+					</div>
+					<div class="form-group">
+						<label for="hideMethod">hideMethod</label>
+						<select id="hideMethod" name="hideMethod" class="form-control">
+							<option value="fade" selected>fade</option>
+							<option value="scale">scale</option>
+							<option value="slideLeft">slideLeft</option>
+							<option value="slideRight">slideRight</option>
+							<option value="slideUp">slideUp</option>
+							<option value="slideDown">slideDown</option>
+						</select>
+						<span class="help-block">Default fade</span>
+					</div>
+				</div>
+				<div class="col-xs-12">
+					<div class="form-group">
+						<input type="submit" id="build" value="build" class="btn btn-primary">
+						<button id="show" class="btn btn-primary">show</button>
+						<button id="hide" class="btn btn-primary">hide</button>
+						<button id="clear" class="btn btn-primary">clear</button>
+						<button id="remove" class="btn btn-primary">remove</button>
+					</div>
+				</div>
+
+			</div>
+		</form>
+	</div>
+
+
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.transit.min.js"></script>
+	<script type="text/javascript" src="js/toaster.js"></script>
+	<script type="text/javascript">
+		var toaster = new Toaster();
+
+		$(".checkbox input:checkbox").on("change", function() {
+			$(this).val($(this).is(":checked") ? true : false);
+		});
+
+		$("form").on("submit", function(event) {
+			var options = {};
+			var defaults = {
+				container: "body",
+				close: false,
+				begin: false,
+				restart: false,
+				classe: "toaster-blue",
+				showMethod: "fade",
+				hideMethod: "fade",
+				position: "bottom-left",
+				timeShow: 600,
+				timeHide: 600,
+				timeBegin: 2000,
+				timeLeave: 20000,
+				timeRestart: 5000,
+				title: "Hello world !",
+				content: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur sit recusandae nisi tempora, at iste molestias tenetur ipsa, quasi itaque. Culpa, repellat minus ex odit atque labore dolor accusamus nam."
+			};
+
+			$(this).serializeArray().map(function(item) {
+				options[item.name] = item.value;
+
+				if (/^(timeShow|timeHide|timeBegin|timeLeave|timeRestart|close|begin|restart)$/.test(item.name)) {
+					options[item.name] = eval(item.value); 
+				}
+			});
+
+			toaster.options = $.extend({}, defaults, options);
+			toaster.build();
+			return false;
+		});
+
+		$("#show").on("click", function() {
+			toaster.show();
+			return false;
+		});
+		$("#hide").on("click", function() {
+			toaster.hide();
+			return false;
+		});
+		$("#clear").on("click", function() {
+			toaster.clear();
+			return false;
+		});
+		$("#remove").on("click", function() {
+			toaster.remove();
+			return false;
+		});
+
+	</script>
+</body>
+</html>
